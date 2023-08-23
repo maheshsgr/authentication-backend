@@ -9,6 +9,9 @@ dotenv.config();
 
 const apiRoutes = require('./routes/apiRoutes');
 
+//MongoDB config
+require('./loaders/db');
+
 const app = express();
 
 app.use(cors());
