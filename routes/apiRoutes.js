@@ -79,15 +79,15 @@ router.post('/register', async (req, res) => {
 
     const newUser = await user.save();
 
-    console.log('newUser', newUser);
+    const token = user.generateToken();
 
     res.status(201).json({
       message: 'User created.',
       user: {
-        email: user.email,
-        _id: user._id,
+        email: newUser.email,
+        _id: newUser._id,
       },
-      token: 'asd',
+      token: token,
     });
   } catch (e) {
     console.log(e);

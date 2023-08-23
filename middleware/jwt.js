@@ -3,7 +3,7 @@ let jwt = require('jsonwebtoken');
 let checkToken = (req, res, next) => {
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
   if (!token) {
-    return res.status(400).json({
+    return res.status(401).json({
       message: 'Token not provided',
     });
   }
@@ -15,7 +15,7 @@ let checkToken = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {
-        return res.status(400).json({
+        return res.status(401).json({
           message: 'Token is not valid',
         });
       } else {
@@ -24,7 +24,7 @@ let checkToken = (req, res, next) => {
       }
     });
   } else {
-    return res.status(400).json({
+    return res.status(401).json({
       message: 'Auth token is not supplied',
     });
   }
