@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
+const User = require('../models/User');
 const auth = require('../middleware/jwt');
 
 router.get('/', (req, res) => {
@@ -10,11 +10,18 @@ router.get('/', (req, res) => {
 });
 
 // user routes
-router.post('/login', require('./user/Login'));
-router.post('/register', require('./user/Register'));
-router.get('/user', auth.checkToken, require('./user/User'));
-router.get('/user/:id', auth.checkToken, require('./user/UserDetails'));
+router.post('/login', require('../controllers/user/Login'));
+router.post('/register', require('../controllers/user/Register'));
+router.get('/user', auth.checkToken, require('../controllers/user/User'));
+router.get(
+  '/user/:id',
+  auth.checkToken,
+  require('../controllers/user/UserDetails')
+);
 
 //experiment routes
-router.post('/createExperiment', require('./abexperiment/AbExperiment'));
+router.post(
+  '/createExperiment',
+  require('../controllers/abexperiment/AbExperiment')
+);
 module.exports = router;

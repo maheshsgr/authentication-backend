@@ -1,4 +1,4 @@
-const AbExperiment = require('../../models/abExperiment');
+const AbExperiment = require('../../models/AbExperiment');
 
 module.exports = async (req, res) => {
   console.log('AbExperiment | req.body ::', req.body);
