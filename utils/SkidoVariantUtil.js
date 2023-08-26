@@ -1,3 +1,5 @@
+const { getLowestRatio } = require('./SkidoMathUtil');
+
 function variantCalculator(ratioNumber1, userTobeAssigned) {
   //   console.log(
   //     'SkidoVariantUtil | variantCalculator :: ratioNumber1, userTobeAssigned',
@@ -10,33 +12,60 @@ function variantCalculator(ratioNumber1, userTobeAssigned) {
 
   return 2;
 }
-
 function getVariantForNextUser(
   ratioNumber1,
   ratioNumber2,
-  experimentVariantAssignedUsersCount,
+  varaintBAssignedCount,
   totalUserLengthAlreadyAssigned,
   targetSampleSetSize
 ) {
-  if (targetSampleSetSize <= experimentVariantAssignedUsersCount) {
+  const nextVariant = calculateVariantForNextUser(
+    ratioNumber1,
+    ratioNumber2,
+    varaintBAssignedCount,
+    totalUserLengthAlreadyAssigned,
+    targetSampleSetSize
+  );
+  if (nextVariant === 1) {
+    return 'variantA';
+  } else {
+    return 'variantB';
+  }
+}
+function calculateVariantForNextUser(
+  ratioNumber1,
+  ratioNumber2,
+  varaintBAssignedCount,
+  totalUserLengthAlreadyAssigned,
+  targetSampleSetSize
+) {
+  // console.log('SkidoVariantUtil', {
+  //   ratioNumber1,
+  //   ratioNumber2,
+  //   varaintBAssignedCount,
+  //   totalUserLengthAlreadyAssigned,
+  //   targetSampleSetSize,
+  // });
+  if (targetSampleSetSize <= varaintBAssignedCount) {
     return 1;
   }
-  var ratioSum = ratioNumber1 + ratioNumber2;
+  const [minRatio1, inRatio2] = getLowestRatio(ratioNumber1, ratioNumber2);
+  var ratioSum = minRatio1 + inRatio2;
   var targetUserNumber = totalUserLengthAlreadyAssigned + 1;
 
   // for initail users
   if (targetUserNumber <= ratioSum) {
-    return variantCalculator(ratioNumber1, targetUserNumber);
+    return variantCalculator(minRatio1, targetUserNumber);
   }
 
   //when users grow
   var currentModeNumber = ((targetUserNumber - 1) % ratioSum) + 1;
 
-  return variantCalculator(ratioNumber1, currentModeNumber);
+  return variantCalculator(minRatio1, currentModeNumber);
 }
 var targetSampleSet = 50;
 for (var i = 0; i < 100; i++) {
-  var nextVariant = getVariantForNextUser(1, 4, i, i, 50);
+  var nextVariant = getVariantForNextUser(80, 20, i, i, targetSampleSet);
   console.log(
     'SkidoVariantUtil | nextVariant ::',
     i,
@@ -44,3 +73,5 @@ for (var i = 0; i < 100; i++) {
     nextVariant
   );
 }
+
+module.exports = { getVariantForNextUser };

@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const auth = require('../middleware/jwt');
-
+const {
+  createExperiment,
+  getExperimentVariant,
+} = require('../controllers/abexperiment');
 router.get('/', (req, res) => {
   res.status(201).json({
     message: 'Welcome to the API.',
@@ -20,8 +23,6 @@ router.get(
 );
 
 //experiment routes
-router.post(
-  '/createExperiment',
-  require('../controllers/abexperiment/AbExperiment')
-);
+router.post('/createExperiment', createExperiment);
+router.post('/getExperimentVariant', getExperimentVariant);
 module.exports = router;

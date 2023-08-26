@@ -22,5 +22,5 @@ function getLowestRatio(number1, number2) {
   var GCD = GCDTwoNumbers(number1, number2);
   return [number1 / GCD, number2 / GCD];
 }
-var lowestRatio = getLowestRatio(70, 30);
 console.log('SkidoMathUtil | lowestRation ::', lowestRatio);
+module.exports = { getLowestRatio };
