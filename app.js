@@ -22,6 +22,6 @@ app.use(logger('dev'));
 
 app.use('/api', apiRoutes);
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.BACKEND_PORT, () => {
   console.log('server running');
 });

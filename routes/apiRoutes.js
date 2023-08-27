@@ -8,7 +8,7 @@ const {
 } = require('../controllers/abexperiment');
 router.get('/', (req, res) => {
   res.status(201).json({
-    message: 'Welcome to the API.',
+    message: 'Welcome to the SKIDO API.',
   });
 });
 

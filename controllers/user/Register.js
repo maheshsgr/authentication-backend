@@ -2,7 +2,7 @@ const User = require('../../models/User');
 
 module.exports = async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(req.body);
   if (!email || !password) {
     return res.status(400).json({
       message: 'Invalid request',
